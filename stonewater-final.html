@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stonewater — Landscape. Pool. Lifestyle.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --charcoal:#1c1c1a;
+  --stone:#8c7b68;
+  --stone-light:#c9b99f;
+  --cream:#f5f1eb;
+  --water:#3d6b7a;
+  --water-light:#6a9faf;
+  --white:#fefefe;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--white);color:var(--charcoal);overflow-x:hidden;font-weight:300;min-height:100vh}
+
+/* ── PAGE SYSTEM ── */
+.page{display:none}
+.page.active{display:block}
+
+/* ── NAV ── */
+/* Always dark — no transparent state */
+#mainNav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 4vw;display:flex;align-items:center;justify-content:space-between;height:72px;background:rgba(28,28,26,0.97);box-shadow:0 1px 0 rgba(255,255,255,0.06);transition:background 0.3s}
+.nav-logo{font-family:var(--serif);font-size:22px;font-weight:300;letter-spacing:0.12em;color:var(--white);text-decoration:none;text-transform:uppercase;cursor:pointer}
+.nav-logo span{color:var(--stone-light)}
+.nav-links{display:flex;gap:0;list-style:none;position:relative}
+.nav-item{position:relative}
+.nav-item>a{font-family:var(--sans);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.75);text-decoration:none;transition:color 0.2s;padding:8px 18px;display:block;cursor:pointer}
+.nav-item>a:hover{color:var(--white)}
+.nav-dropdown{display:none;position:absolute;top:100%;left:0;background:rgba(22,21,19,0.98);min-width:260px;padding:8px 0;border-top:2px solid var(--stone)}
+.nav-item:hover .nav-dropdown{display:block}
+.nav-dropdown a{display:block;padding:10px 20px;font-size:12px;letter-spacing:0.1em;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s;cursor:pointer}
+.nav-dropdown a:hover{color:var(--white)}
+/* Solid white CTA button */
+.nav-cta{font-family:var(--sans);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--charcoal);background:var(--white);border:1px solid var(--white);padding:9px 22px;transition:all 0.25s;cursor:pointer;text-decoration:none;font-weight:500}
+.nav-cta:hover{background:var(--stone-light);border-color:var(--stone-light);color:var(--white)}
+.nav-mobile-btn{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-mobile-btn span{display:block;width:24px;height:1px;background:var(--white)}
+
+/* ── HERO — home page (capped 1000px, Ken Burns) ── */
+.hero{position:relative;height:min(100vh,1000px);min-height:600px;display:flex;align-items:flex-end;padding:0 4vw 8vh;overflow:hidden;margin-top:72px}
+.hero-bg{position:absolute;inset:-6%;background:url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1800&q=80') center/cover no-repeat;animation:kenBurns 20s ease-in-out infinite alternate}
+@keyframes kenBurns{
+  0%  {transform:scale(1.00) translate(0%,0%)}
+  33% {transform:scale(1.07) translate(-1.5%,0.5%)}
+  66% {transform:scale(1.05) translate(1%,-1%)}
+  100%{transform:scale(1.10) translate(-0.5%,1.5%)}
+}
+/* Stronger overlay so copy always reads */
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(18,16,14,0.90) 0%,rgba(18,16,14,0.38) 50%,rgba(18,16,14,0.55) 100%)}
+.hero-content{position:relative;z-index:2;max-width:780px}
+.hero-eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--stone-light);margin-bottom:20px;opacity:0;animation:fadeUp 0.9s 0.3s ease forwards;text-shadow:0 1px 8px rgba(0,0,0,0.6)}
+.hero h1{font-family:var(--serif);font-size:clamp(52px,7vw,96px);font-weight:300;line-height:1.0;color:var(--white);margin-bottom:28px;opacity:0;animation:fadeUp 0.9s 0.55s ease forwards;text-shadow:0 2px 24px rgba(0,0,0,0.5)}
+.hero h1 em{font-style:italic;color:var(--stone-light)}
+.hero-sub{font-size:15px;line-height:1.75;color:rgba(255,255,255,0.88);max-width:480px;margin-bottom:40px;opacity:0;animation:fadeUp 0.9s 0.75s ease forwards;text-shadow:0 1px 10px rgba(0,0,0,0.5)}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp 0.9s 0.95s ease forwards}
+.btn-primary{display:inline-block;font-family:var(--sans);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;background:var(--stone);color:var(--white);padding:15px 34px;text-decoration:none;transition:background 0.25s;cursor:pointer;border:none}
+.btn-primary:hover{background:var(--stone-light)}
+.btn-ghost{display:inline-block;font-family:var(--sans);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.5);color:var(--white);padding:15px 34px;text-decoration:none;transition:all 0.25s;cursor:pointer;background:transparent}
+.btn-ghost:hover{background:rgba(255,255,255,0.08)}
+.btn-outline-dark{display:inline-block;font-family:var(--sans);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;border:1px solid rgba(28,28,26,0.35);color:var(--charcoal);padding:14px 32px;text-decoration:none;transition:all 0.25s;cursor:pointer;background:transparent}
+.btn-outline-dark:hover{background:var(--charcoal);color:var(--white)}
+.hero-scroll{position:absolute;bottom:40px;right:4vw;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:fadeUp 1s 1.2s ease forwards}
+.hero-scroll span{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.45);writing-mode:vertical-lr}
+.hero-scroll-line{width:1px;height:56px;background:rgba(255,255,255,0.2);position:relative;overflow:hidden}
+.hero-scroll-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--stone-light);animation:scrollLine 2s 1.5s ease-in-out infinite}
+@keyframes scrollLine{0%{top:-100%}100%{top:100%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── INTERIOR PAGE HERO (shorter, Ken Burns) ── */
+.page-hero{position:relative;height:420px;display:flex;align-items:flex-end;padding:0 4vw 56px;overflow:hidden;margin-top:72px}
+.page-hero-bg{position:absolute;inset:-6%;background-size:cover;background-position:center;animation:kenBurns 20s ease-in-out infinite alternate}
+.page-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(18,16,14,0.88) 0%,rgba(18,16,14,0.28) 60%)}
+.page-hero-content{position:relative;z-index:2}
+.page-hero-eyebrow{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--stone-light);margin-bottom:14px}
+.page-hero h1{font-family:var(--serif);font-size:clamp(38px,5vw,66px);font-weight:300;color:var(--white);line-height:1.1;text-shadow:0 2px 20px rgba(0,0,0,0.4)}
+.page-hero h1 em{font-style:italic}
+.breadcrumb{position:absolute;top:16px;left:4vw;z-index:2;display:flex;gap:8px;align-items:center;font-size:11px;letter-spacing:0.1em;color:rgba(255,255,255,0.4)}
+.breadcrumb a{color:rgba(255,255,255,0.4);text-decoration:none;cursor:pointer}
+.breadcrumb a:hover{color:rgba(255,255,255,0.75)}
+.breadcrumb span{color:rgba(255,255,255,0.25)}
+
+/* ── MARQUEE STRIP ── */
+.strip{background:var(--charcoal);padding:16px 0;overflow:hidden}
+.strip-inner{display:flex;gap:0;white-space:nowrap;animation:marquee 22s linear infinite}
+.strip-item{font-family:var(--serif);font-size:15px;font-weight:300;letter-spacing:0.12em;color:var(--stone-light);padding:0 40px;flex-shrink:0}
+.strip-item::after{content:'·';margin-left:40px;color:var(--stone)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SHARED SECTION STYLES ── */
+section{padding:100px 4vw}
+.section-label{font-family:var(--sans);font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--stone);margin-bottom:16px}
+.section-title{font-family:var(--serif);font-size:clamp(36px,4.5vw,58px);font-weight:300;line-height:1.15;color:var(--charcoal)}
+.section-title em{font-style:italic;color:var(--stone)}
+
+/* ── INTRO ── */
+.intro{background:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.intro-text p{font-size:16px;line-height:1.85;color:#4a4540;margin-top:24px}
+.intro-text p+p{margin-top:16px}
+.intro-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:40px}
+.stat{background:var(--charcoal);padding:28px 24px}
+.stat-num{font-family:var(--serif);font-size:42px;font-weight:300;color:var(--white);line-height:1}
+.stat-num sup{font-size:20px}
+.stat-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--stone-light);margin-top:6px}
+.intro-image{position:relative}
+.intro-image img{width:100%;height:520px;object-fit:cover;display:block}
+.intro-image-caption{position:absolute;bottom:0;right:0;background:var(--charcoal);padding:18px 22px}
+.intro-image-caption p{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--stone-light)}
+
+/* ── SERVICES GRID ── */
+.services{background:var(--white)}
+.services-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.service-card{position:relative;overflow:hidden;cursor:pointer}
+.service-card img{width:100%;height:400px;object-fit:cover;display:block;transition:transform 0.7s ease}
+.service-card:hover img{transform:scale(1.05)}
+.service-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,18,16,0.88) 0%,rgba(20,18,16,0.05) 55%);transition:background 0.3s}
+.service-card:hover .service-card-overlay{background:linear-gradient(to top,rgba(20,18,16,0.92) 0%,rgba(20,18,16,0.2) 55%)}
+.service-card-content{position:absolute;bottom:0;left:0;right:0;padding:28px 26px}
+.service-num{font-family:var(--sans);font-size:10px;letter-spacing:0.22em;color:var(--stone-light);margin-bottom:10px}
+.service-card h3{font-family:var(--serif);font-size:24px;font-weight:300;color:var(--white);line-height:1.2;margin-bottom:10px}
+.service-card p{font-size:13px;line-height:1.7;color:rgba(255,255,255,0.65);max-height:0;overflow:hidden;transition:max-height 0.4s ease,opacity 0.4s;opacity:0}
+.service-card:hover p{max-height:80px;opacity:1}
+.service-link{display:inline-block;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--stone-light);margin-top:12px;text-decoration:none;border-bottom:1px solid var(--stone);padding-bottom:2px;opacity:0;transform:translateY(6px);transition:opacity 0.3s,transform 0.3s;cursor:pointer}
+.service-card:hover .service-link{opacity:1;transform:translateY(0)}
+
+/* ── DIFFERENCE DARK ── */
+.difference{background:var(--charcoal);color:var(--white);display:grid;grid-template-columns:5fr 4fr;gap:80px;align-items:center}
+.difference-list{margin-top:48px;display:flex;flex-direction:column;gap:0}
+.diff-item{border-top:1px solid rgba(255,255,255,0.1);padding:24px 0;display:flex;gap:24px;align-items:flex-start}
+.diff-item:last-child{border-bottom:1px solid rgba(255,255,255,0.1)}
+.diff-num{font-family:var(--serif);font-size:13px;color:var(--stone);margin-top:3px;flex-shrink:0;width:28px}
+.diff-body h4{font-family:var(--serif);font-size:20px;font-weight:300;color:var(--white);margin-bottom:6px}
+.diff-body p{font-size:13px;line-height:1.75;color:rgba(255,255,255,0.55)}
+.difference-visual{position:relative}
+.difference-visual img{width:100%;height:560px;object-fit:cover;display:block}
+.diff-badge{position:absolute;top:-24px;right:-24px;width:120px;height:120px;background:var(--stone);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.diff-badge span:first-child{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--white);line-height:1}
+.diff-badge span:last-child{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:4px}
+
+/* ── PORTFOLIO PREVIEW (home) ── */
+.portfolio{background:var(--cream)}
+.portfolio-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px}
+.portfolio-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.pf-item{overflow:hidden;position:relative;cursor:pointer}
+.pf-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease}
+.pf-item:hover img{transform:scale(1.04)}
+.pf-large{grid-column:span 7;height:460px}
+.pf-tall{grid-column:span 5;height:460px}
+.pf-wide{grid-column:span 5;height:300px}
+.pf-med{grid-column:span 7;height:300px}
+.pf-overlay{position:absolute;inset:0;background:rgba(20,18,16,0);transition:background 0.35s;display:flex;align-items:flex-end;padding:24px}
+.pf-item:hover .pf-overlay{background:rgba(20,18,16,0.55)}
+.pf-label{font-family:var(--serif);font-size:20px;font-weight:300;font-style:italic;color:var(--white);opacity:0;transform:translateY(8px);transition:opacity 0.3s,transform 0.3s}
+.pf-item:hover .pf-label{opacity:1;transform:translateY(0)}
+
+/* ── PROCESS ── */
+.process{background:var(--white);text-align:center}
+.process-header{max-width:640px;margin:0 auto 72px}
+.process-header .section-title{margin-top:12px}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;position:relative}
+.process-steps::before{content:'';position:absolute;top:28px;left:12%;right:12%;height:1px;background:var(--stone-light);z-index:0}
+.step{position:relative;z-index:1}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--cream);border:1px solid var(--stone-light);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:20px;color:var(--stone);margin:0 auto 20px}
+.step h4{font-family:var(--serif);font-size:20px;font-weight:300;margin-bottom:10px}
+.step p{font-size:13px;line-height:1.75;color:#6a6258}
+
+/* ── TESTIMONIAL ── */
+.testimonial{background:url('https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=1800&q=80') center/cover fixed no-repeat;position:relative;text-align:center;padding:120px 4vw}
+.testimonial::before{content:'';position:absolute;inset:0;background:rgba(20,18,16,0.72)}
+.testimonial-content{position:relative;z-index:1;max-width:780px;margin:0 auto}
+.quote-mark{font-family:var(--serif);font-size:96px;font-weight:300;color:var(--stone-light);line-height:0.5;margin-bottom:32px;display:block}
+.testimonial blockquote{font-family:var(--serif);font-size:clamp(22px,3vw,34px);font-weight:300;font-style:italic;color:var(--white);line-height:1.5;margin-bottom:32px}
+.testimonial cite{font-family:var(--sans);font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--stone-light);font-style:normal}
+
+/* ── CTA SPLIT ── */
+.cta-section{background:var(--charcoal);display:grid;grid-template-columns:1fr 1fr}
+.cta-left{padding:80px 6vw;display:flex;flex-direction:column;justify-content:center}
+.cta-left .section-title{color:var(--white)}
+.cta-left .section-title em{color:var(--stone-light)}
+.cta-left>p{font-size:15px;line-height:1.8;color:rgba(255,255,255,0.6);margin:24px 0 40px;max-width:420px}
+.cta-form{display:flex;flex-direction:column;gap:14px}
+.cta-form input,.cta-form select{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);padding:14px 18px;font-family:var(--sans);font-size:13px;color:var(--white);outline:none;transition:border-color 0.2s;width:100%}
+.cta-form input::placeholder{color:rgba(255,255,255,0.35)}
+.cta-form select{color:rgba(255,255,255,0.55)}
+.cta-form select option{background:var(--charcoal);color:var(--white)}
+.cta-form input:focus,.cta-form select:focus{border-color:var(--stone-light)}
+.cta-form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cta-form button{background:var(--stone);border:none;color:var(--white);font-family:var(--sans);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;padding:16px;cursor:pointer;transition:background 0.25s;margin-top:6px}
+.cta-form button:hover{background:var(--stone-light)}
+.cta-right{position:relative;overflow:hidden}
+.cta-right img{width:100%;height:100%;object-fit:cover;display:block;min-height:560px}
+.cta-right-badge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(20,18,16,0.3)}
+.cta-right-badge-inner{text-align:center}
+.cta-right-badge-inner p{font-family:var(--serif);font-size:15px;font-style:italic;color:rgba(255,255,255,0.7);margin-bottom:6px}
+.cta-right-badge-inner a{font-family:var(--sans);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid var(--stone-light);padding-bottom:3px;cursor:pointer}
+
+/* ── FOOTER ── */
+footer{background:#111110;padding:60px 4vw 30px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.footer-brand .nav-logo{display:block;margin-bottom:16px;font-size:20px}
+.footer-brand p{font-size:13px;line-height:1.75;color:rgba(255,255,255,0.4);max-width:260px}
+.footer-concept{color:var(--stone) !important}
+.footer-col h5{font-family:var(--sans);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--stone);margin-bottom:20px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col ul a{font-size:13px;color:rgba(255,255,255,0.45);text-decoration:none;transition:color 0.2s;cursor:pointer}
+.footer-col ul a:hover{color:rgba(255,255,255,0.85)}
+.footer-bottom{padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,0.25)}
+.footer-bottom a{font-size:12px;color:rgba(255,255,255,0.25);text-decoration:none;margin-left:24px}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ══ PORTFOLIO PAGE ══ */
+.pf-page-wrap{padding:60px 4vw 80px;background:var(--white)}
+.pf-filter-bar{display:flex;gap:6px;margin-bottom:44px;flex-wrap:wrap;align-items:center}
+.pf-filter-label{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--stone);margin-right:8px}
+.pf-filter{font-family:var(--sans);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;padding:7px 18px;border:1px solid rgba(28,28,26,0.25);background:none;color:#6a6258;cursor:pointer;transition:all 0.2s}
+.pf-filter.active,.pf-filter:hover{background:var(--charcoal);color:var(--white);border-color:var(--charcoal)}
+.pf-full-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.pf-full-item{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:4/3}
+.pf-full-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease}
+.pf-full-item:hover img{transform:scale(1.06)}
+.pf-full-hover{position:absolute;inset:0;background:rgba(18,16,14,0);transition:background 0.3s;display:flex;flex-direction:column;justify-content:flex-end;padding:24px}
+.pf-full-item:hover .pf-full-hover{background:rgba(18,16,14,0.65)}
+.pf-full-title{font-family:var(--serif);font-size:20px;font-weight:300;font-style:italic;color:var(--white);opacity:0;transform:translateY(8px);transition:opacity 0.3s,transform 0.3s}
+.pf-full-meta{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--stone-light);opacity:0;transition:opacity 0.35s 0.05s;margin-bottom:6px}
+.pf-full-item:hover .pf-full-title,.pf-full-item:hover .pf-full-meta{opacity:1;transform:none}
+.pf-full-item.pf-featured{grid-column:span 2;aspect-ratio:auto;height:480px}
+
+/* ══ PROJECT DETAIL ══ */
+.project-wrap{padding:60px 4vw 80px;background:var(--white)}
+.project-intro{display:grid;grid-template-columns:2fr 1fr;gap:60px;margin-bottom:60px;align-items:start}
+.project-intro-text h2{font-family:var(--serif);font-size:clamp(28px,3.5vw,44px);font-weight:300;line-height:1.2;margin-bottom:20px}
+.project-intro-text p{font-size:15px;line-height:1.85;color:#4a4540;margin-bottom:14px}
+.project-specs{background:var(--cream);padding:32px 28px}
+.spec-row{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid rgba(28,28,26,0.1)}
+.spec-row:last-child{border-bottom:none}
+.spec-label{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--stone)}
+.spec-value{font-family:var(--serif);font-size:16px;font-weight:300;color:var(--charcoal)}
+.project-gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-bottom:60px}
+.pg-main{grid-column:span 8;height:500px}
+.pg-side{grid-column:span 4;display:grid;gap:12px}
+.pg-side-img{height:243px}
+.pg-wide{grid-column:span 6;height:360px}
+.pg-full{grid-column:span 12;height:440px}
+.project-gallery img{width:100%;height:100%;object-fit:cover;display:block}
+.project-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 0;border-top:1px solid rgba(28,28,26,0.12)}
+.proj-nav-link{display:flex;flex-direction:column;gap:4px;cursor:pointer}
+.proj-nav-link span:first-child{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--stone)}
+.proj-nav-link span:last-child{font-family:var(--serif);font-size:19px;font-weight:300;color:var(--charcoal)}
+.proj-nav-link:hover span:last-child{color:var(--stone)}
+
+/* ══ SERVICE DETAIL ══ */
+.service-wrap{padding:60px 4vw 0;background:var(--white)}
+.service-intro{display:grid;grid-template-columns:3fr 2fr;gap:60px;margin-bottom:70px;align-items:start}
+.service-intro-text h2{font-family:var(--serif);font-size:clamp(28px,3.5vw,44px);font-weight:300;line-height:1.2;margin-bottom:20px}
+.service-intro-text p{font-size:15px;line-height:1.85;color:#4a4540;margin-bottom:14px}
+.service-callout{background:var(--charcoal);padding:32px 28px}
+.service-callout blockquote{font-family:var(--serif);font-style:italic;font-size:18px;font-weight:300;color:var(--white);line-height:1.6;margin-bottom:20px}
+.service-callout cite{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--stone-light);font-style:normal}
+.service-callout ul{margin-top:24px;list-style:none;display:flex;flex-direction:column;gap:10px}
+.service-callout ul li{font-size:13px;color:rgba(255,255,255,0.55);display:flex;gap:10px;align-items:center}
+.service-callout ul li::before{content:'';display:block;width:24px;height:1px;background:var(--stone);flex-shrink:0}
+.service-types-section{padding:60px 4vw;background:var(--cream)}
+.service-types-section h3{font-family:var(--serif);font-size:clamp(26px,3vw,38px);font-weight:300;margin-bottom:36px}
+.service-types-section h3 em{font-style:italic;color:var(--stone)}
+.svc-type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.svc-type{background:var(--white);padding:28px 24px}
+.svc-type h4{font-family:var(--serif);font-size:19px;font-weight:300;margin-bottom:10px}
+.svc-type p{font-size:13px;line-height:1.75;color:#6a6258}
+.svc-type-bar{width:36px;height:2px;background:var(--stone);margin-bottom:16px}
+.service-gallery-row{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.service-gallery-row img{width:100%;height:300px;object-fit:cover;display:block}
+
+/* ══ ABOUT / DIFFERENCE PAGE ══ */
+.about-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;padding:80px 4vw;background:var(--cream)}
+.about-intro-text h2{font-family:var(--serif);font-size:clamp(30px,4vw,52px);font-weight:300;line-height:1.15;margin-bottom:22px}
+.about-intro-text h2 em{font-style:italic;color:var(--stone)}
+.about-intro-text p{font-size:15px;line-height:1.85;color:#4a4540;margin-bottom:14px}
+.about-intro-img img{width:100%;height:500px;object-fit:cover;display:block}
+.about-pillars{padding:80px 4vw;background:var(--white)}
+.pillars-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:52px}
+.pillar{padding:40px 36px;background:var(--cream)}
+.pillar:nth-child(even){background:var(--white);border:1px solid rgba(28,28,26,0.08)}
+.pillar-num{font-family:var(--serif);font-size:48px;font-weight:300;color:var(--stone-light);line-height:1;margin-bottom:14px}
+.pillar h3{font-family:var(--serif);font-size:24px;font-weight:300;margin-bottom:12px}
+.pillar p{font-size:14px;line-height:1.8;color:#5a5248}
+.about-team{padding:80px 4vw;background:var(--charcoal)}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px}
+.team-card{position:relative;overflow:hidden}
+.team-card img{width:100%;height:420px;object-fit:cover;display:block;filter:grayscale(25%)}
+.team-info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(18,16,14,0.9),transparent);padding:28px 24px}
+.team-name{font-family:var(--serif);font-size:20px;font-weight:300;color:var(--white);margin-bottom:4px}
+.team-role{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--stone-light)}
+.about-timeline{padding:80px 4vw;background:var(--cream)}
+.timeline-list{margin-top:48px}
+.timeline-item{display:flex;gap:40px;padding:28px 0;border-bottom:1px solid rgba(28,28,26,0.1);align-items:flex-start}
+.timeline-year{font-family:var(--serif);font-size:28px;font-weight:300;color:var(--stone);flex-shrink:0;width:80px}
+.timeline-text h4{font-family:var(--serif);font-size:19px;font-weight:300;margin-bottom:6px}
+.timeline-text p{font-size:13px;line-height:1.75;color:#6a6258}
+
+/* ══ CONTACT PAGE ══ */
+.contact-page{display:grid;grid-template-columns:1fr 1fr;margin-top:72px}
+.contact-info{background:var(--charcoal);padding:80px 6vw;display:flex;flex-direction:column;justify-content:center;min-height:calc(100vh - 72px)}
+.contact-info .section-title{color:var(--white)}
+.contact-info>p{font-size:15px;line-height:1.8;color:rgba(255,255,255,0.55);margin:22px 0 44px;max-width:400px}
+.contact-detail{display:flex;flex-direction:column;gap:28px}
+.contact-item h5{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--stone-light);margin-bottom:6px}
+.contact-item p,.contact-item a{font-family:var(--serif);font-size:18px;font-weight:300;color:var(--white);text-decoration:none}
+.contact-item a:hover{color:var(--stone-light)}
+.contact-form-wrap{background:var(--cream);padding:80px 6vw;display:flex;flex-direction:column;justify-content:center}
+.contact-form-wrap h2{font-family:var(--serif);font-size:clamp(26px,3vw,38px);font-weight:300;line-height:1.2;margin:12px 0 36px}
+.contact-form-wrap h2 em{font-style:italic;color:var(--stone)}
+.contact-form{display:flex;flex-direction:column;gap:14px}
+.contact-form input,.contact-form select,.contact-form textarea{background:var(--white);border:1px solid rgba(28,28,26,0.18);padding:14px 16px;font-family:var(--sans);font-size:13px;color:var(--charcoal);outline:none;transition:border-color 0.2s;width:100%}
+.contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{border-color:var(--stone)}
+.contact-form select{color:#6a6258}
+.contact-form textarea{min-height:120px;resize:vertical}
+.contact-form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.contact-form button{background:var(--stone);border:none;color:var(--white);font-family:var(--sans);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;padding:16px 40px;cursor:pointer;transition:background 0.25s;align-self:flex-start;margin-top:4px}
+.contact-form button:hover{background:var(--charcoal)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .intro,.difference,.about-intro{grid-template-columns:1fr;gap:48px}
+  .difference-visual,.cta-right{display:none}
+  .services-grid,.svc-type-grid,.team-grid{grid-template-columns:1fr 1fr}
+  .process-steps{grid-template-columns:1fr 1fr;gap:32px}
+  .process-steps::before{display:none}
+  .cta-section{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .service-intro,.project-intro{grid-template-columns:1fr}
+  .pillars-grid{grid-template-columns:1fr 1fr}
+  .contact-page{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}
+  .nav-mobile-btn{display:flex}
+  .services-grid,.pf-full-grid,.service-gallery-row,.svc-type-grid,.team-grid{grid-template-columns:1fr}
+  .pf-large,.pf-tall,.pf-wide,.pf-med{grid-column:span 12;height:280px}
+  .pf-full-item.pf-featured{grid-column:span 1;height:260px;aspect-ratio:4/3}
+  .pg-main,.pg-side,.pg-wide,.pg-full{grid-column:span 12;height:240px}
+  .pg-side{display:block}
+  section,.intro,.difference,.about-intro{padding:64px 5vw}
+  .pf-page-wrap,.project-wrap,.service-wrap,.service-types-section,.about-pillars,.about-team,.about-timeline{padding-left:5vw;padding-right:5vw}
+  .pillars-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .cta-form-row,.contact-form-row{grid-template-columns:1fr}
+  .services-header,.portfolio-header{flex-direction:column;align-items:flex-start;gap:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV (shared, always visible) ══ -->
+<nav id="mainNav">
+  <a class="nav-logo" onclick="goTo('home')">Stone<span>water</span></a>
+  <ul class="nav-links">
+    <li class="nav-item">
+      <a>About ▾</a>
+      <div class="nav-dropdown">
+        <a onclick="goTo('difference')">The Stonewater Difference</a>
+        <a onclick="goTo('difference')">Our Expertise</a>
+        <a onclick="goTo('difference')">Origins &amp; Innovations</a>
+        <a onclick="goTo('difference')">Leadership</a>
+        <a onclick="goTo('difference')">Sustainability</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a>Services ▾</a>
+      <div class="nav-dropdown">
+        <a onclick="goTo('service')">Pool Design, Build &amp; Renovation</a>
+        <a onclick="goTo('service')">Landscape Architecture &amp; Construction</a>
+        <a onclick="goTo('service')">Outdoor Furnishings &amp; Decor</a>
+        <a onclick="goTo('service')">Garden Design &amp; Installation</a>
+        <a onclick="goTo('service')">Estates by Stonewater</a>
+        <a onclick="goTo('service')">Property Care</a>
+        <a onclick="goTo('service')">Pool Care</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a>Portfolio ▾</a>
+      <div class="nav-dropdown">
+        <a onclick="goTo('portfolio')">All Projects</a>
+        <a onclick="goTo('portfolio')">Swimming Pools &amp; Spas</a>
+        <a onclick="goTo('portfolio')">Outdoor Living</a>
+        <a onclick="goTo('portfolio')">Landscapes &amp; Gardens</a>
+        <a onclick="goTo('portfolio')">Estates</a>
+      </div>
+    </li>
+    <li class="nav-item"><a onclick="goTo('contact')">Contact</a></li>
+  </ul>
+  <a class="nav-cta" onclick="goTo('contact')">Request a Consultation</a>
+  <div class="nav-mobile-btn"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ════════════════════════════════
+     PAGE: HOME
+════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Fairfield County, Connecticut · Est. 1987</p>
+    <h1>Where<br>land meets<br><em>living water</em></h1>
+    <p class="hero-sub">Stonewater designs and builds extraordinary outdoor environments — from award-winning pool architecture to complete landscape estates — for discerning homeowners across Fairfield and Westchester Counties.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" onclick="goTo('portfolio')">View Our Work</a>
+      <a class="btn-ghost" onclick="goTo('contact')">Begin Your Project</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Explore</span><div class="hero-scroll-line"></div></div>
+</section>
+
+<div class="strip">
+  <div class="strip-inner">
+    <span class="strip-item">Custom Pool Design</span><span class="strip-item">Landscape Architecture</span><span class="strip-item">Outdoor Living Spaces</span><span class="strip-item">Estate Property Care</span><span class="strip-item">Garden Design &amp; Installation</span><span class="strip-item">Pool &amp; Spa Renovation</span><span class="strip-item">Custom Pool Design</span><span class="strip-item">Landscape Architecture</span><span class="strip-item">Outdoor Living Spaces</span><span class="strip-item">Estate Property Care</span><span class="strip-item">Garden Design &amp; Installation</span><span class="strip-item">Pool &amp; Spa Renovation</span>
+  </div>
+</div>
+
+<section class="intro reveal" id="about">
+  <div class="intro-text">
+    <p class="section-label">Our Philosophy</p>
+    <h2 class="section-title">The land tells a story.<br><em>We help you tell it better.</em></h2>
+    <p>For over 35 years, Stonewater has been transforming the private landscapes of Fairfield County's most distinguished properties. We don't install pools. We engineer outdoor ecosystems — where architecture, horticulture, water, and light converge into something that feels inevitable.</p>
+    <p>Every project begins with listening: to the land, to the light, to how you actually live. The result is an environment that looks like it was always meant to be there.</p>
+    <div class="intro-stat-grid">
+      <div class="stat"><div class="stat-num">350<sup>+</sup></div><div class="stat-label">Estates completed</div></div>
+      <div class="stat"><div class="stat-num">35<sup>+</sup></div><div class="stat-label">Years in Fairfield County</div></div>
+      <div class="stat"><div class="stat-num">18</div><div class="stat-label">National design awards</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-label">Generations of clients</div></div>
+    </div>
+  </div>
+  <div class="intro-image">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80" alt="Luxury estate">
+    <div class="intro-image-caption"><p>"Designed for how you live — not how others do."</p></div>
+  </div>
+</section>
+
+<section class="services reveal" id="services">
+  <div class="services-header">
+    <div>
+      <p class="section-label">What We Create</p>
+      <h2 class="section-title">Every service.<br><em>One vision.</em></h2>
+    </div>
+    <a class="btn-outline-dark" onclick="goTo('service')">Explore All Services</a>
+  </div>
+  <div class="services-grid">
+    <div class="service-card" onclick="goTo('service')">
+      <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700&q=80" alt="Pool Design">
+      <div class="service-card-overlay"></div>
+      <div class="service-card-content"><p class="service-num">01</p><h3>Pool Design,<br>Build &amp; Renovation</h3><p>From infinity-edge pools that disappear into the horizon to intimate plunge pools surrounded by bluestone, every Stonewater pool is engineered to its site.</p><span class="service-link">Learn more</span></div>
+    </div>
+    <div class="service-card" onclick="goTo('service')">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Landscape Architecture">
+      <div class="service-card-overlay"></div>
+      <div class="service-card-content"><p class="service-num">02</p><h3>Landscape<br>Architecture</h3><p>Master planning, grading, hardscape, planting design, and drainage — holistically conceived so every element of your property speaks the same language.</p><span class="service-link">Learn more</span></div>
+    </div>
+    <div class="service-card" onclick="goTo('service')">
+      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80" alt="Outdoor Living">
+      <div class="service-card-overlay"></div>
+      <div class="service-card-content"><p class="service-num">03</p><h3>Outdoor Living<br>&amp; Entertainment</h3><p>Pavilions, outdoor kitchens, fire features, pergolas, and lighting systems that extend your home's living space into the landscape — year round.</p><span class="service-link">Learn more</span></div>
+    </div>
+    <div class="service-card" onclick="goTo('service')">
+      <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=700&q=80" alt="Garden Design">
+      <div class="service-card-overlay"></div>
+      <div class="service-card-content"><p class="service-num">04</p><h3>Garden Design<br>&amp; Installation</h3><p>Curated planting plans that respond to your soil, your microclimate, and your aesthetic — designed to evolve beautifully over decades.</p><span class="service-link">Learn more</span></div>
+    </div>
+    <div class="service-card" onclick="goTo('service')">
+      <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=700&q=80" alt="Property Care">
+      <div class="service-card-overlay"></div>
+      <div class="service-card-content"><p class="service-num">05</p><h3>Estate Property<br>&amp; Pool Care</h3><p>Year-round stewardship programs tailored to the complexity of your property. The same care and attention on day 1,000 as on day one.</p><span class="service-link">Learn more</span></div>
+    </div>
+    <div class="service-card" onclick="goTo('service')">
+      <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=700&q=80" alt="Estates">
+      <div class="service-card-overlay"></div>
+      <div class="service-card-content"><p class="service-num">06</p><h3>Estates by<br>Stonewater</h3><p>Complete outdoor environments for properties over 2 acres — a single team managing the full scope from master plan to ongoing care.</p><span class="service-link">Learn more</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="difference" id="about-detail">
+  <div>
+    <p class="section-label" style="color:var(--stone-light)">The Stonewater Difference</p>
+    <h2 class="section-title" style="color:var(--white)">Why clients choose us<br><em>— and stay</em></h2>
+    <div class="difference-list">
+      <div class="diff-item"><span class="diff-num">01</span><div class="diff-body"><h4>Design-led, not contractor-led</h4><p>Every project is conceived by a licensed landscape architect before a single machine moves. Design integrity isn't an afterthought — it's our foundation.</p></div></div>
+      <div class="diff-item"><span class="diff-num">02</span><div class="diff-body"><h4>One relationship, start to finish</h4><p>Your principal designer is your project manager. No handoffs to junior staff, no surprises at construction. The person who drew your vision builds it.</p></div></div>
+      <div class="diff-item"><span class="diff-num">03</span><div class="diff-body"><h4>35 years of Fairfield County soil</h4><p>We know the geology, the microclimates, the permitting offices, and the nursery relationships that only come from decades of working in one market.</p></div></div>
+      <div class="diff-item"><span class="diff-num">04</span><div class="diff-body"><h4>Maintenance as serious as design</h4><p>Our property care teams are trained on each installation, so care preserves the design intent — not just the turf.</p></div></div>
+    </div>
+    <div style="margin-top:36px"><a class="btn-primary" onclick="goTo('difference')">The Full Stonewater Story</a></div>
+  </div>
+  <div class="difference-visual reveal">
+    <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=700&q=80" alt="Luxury property">
+    <div class="diff-badge"><span>18</span><span>Design<br>Awards</span></div>
+  </div>
+</section>
+
+<section class="portfolio reveal" id="portfolio">
+  <div class="portfolio-header">
+    <div>
+      <p class="section-label">Selected Work</p>
+      <h2 class="section-title">Stories told<br><em>in stone and water</em></h2>
+    </div>
+    <a class="btn-outline-dark" onclick="goTo('portfolio')">View Full Portfolio</a>
+  </div>
+  <div class="portfolio-grid">
+    <div class="pf-item pf-large" onclick="goTo('project')"><img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=900&q=80" alt="A Sound Estate"><div class="pf-overlay"><span class="pf-label">A Sound Estate — Greenwich</span></div></div>
+    <div class="pf-item pf-tall" onclick="goTo('project')"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700&q=80" alt="The Coastal Residence"><div class="pf-overlay"><span class="pf-label">The Coastal Residence — Darien</span></div></div>
+    <div class="pf-item pf-wide" onclick="goTo('project')"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80" alt="Westport Modern"><div class="pf-overlay"><span class="pf-label">Westport Modern — Westport</span></div></div>
+    <div class="pf-item pf-med" onclick="goTo('project')"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80" alt="New Canaan Formal"><div class="pf-overlay"><span class="pf-label">New Canaan Formal — New Canaan</span></div></div>
+  </div>
+</section>
+
+<section class="process reveal" id="process">
+  <div class="process-header">
+    <p class="section-label">How We Work</p>
+    <h2 class="section-title">A process as considered<br><em>as the result</em></h2>
+  </div>
+  <div class="process-steps">
+    <div class="step"><div class="step-num">01</div><h4>Discovery &amp; Site Analysis</h4><p>We study your land before we touch it — topography, drainage, light patterns, sight lines, and how you live. Two hours of listening saves two months of revision.</p></div>
+    <div class="step"><div class="step-num">02</div><h4>Design &amp; Master Planning</h4><p>Your principal designer develops a comprehensive vision — illustrated in rendered plans that let you see and refine the result before anything is built.</p></div>
+    <div class="step"><div class="step-num">03</div><h4>Construction &amp; Installation</h4><p>Our own crews, not subcontractors. Weekly project check-ins. Transparent timelines. Every phase supervised by the designer who created it.</p></div>
+    <div class="step"><div class="step-num">04</div><h4>Care &amp; Stewardship</h4><p>A tailored maintenance program begins at completion. Your investment is protected season to season by the people who know it best.</p></div>
+  </div>
+</section>
+
+<div class="testimonial">
+  <div class="testimonial-content">
+    <span class="quote-mark">"</span>
+    <blockquote>Stonewater didn't just build us a pool — they transformed how we experience our entire property. Three years later, we still catch ourselves stopping to take it in.</blockquote>
+    <cite>— R. &amp; C. Whitmore, Greenwich CT · Clients since 2019</cite>
+  </div>
+</div>
+
+<div class="cta-section" id="contact-home">
+  <div class="cta-left reveal">
+    <p class="section-label" style="color:var(--stone-light)">Begin Your Project</p>
+    <h2 class="section-title">Every extraordinary<br><em>property starts here</em></h2>
+    <p>Tell us about your vision. We'll schedule a complimentary consultation with one of our senior designers — on your property, at a time that works for you.</p>
+    <form class="cta-form" onsubmit="return false">
+      <div class="cta-form-row"><input type="text" placeholder="First name"><input type="text" placeholder="Last name"></div>
+      <input type="email" placeholder="Email address">
+      <input type="tel" placeholder="Phone number">
+      <input type="text" placeholder="Town / City">
+      <select><option value="" disabled selected>I'm interested in…</option><option>Pool Design &amp; Build</option><option>Landscape Architecture</option><option>Outdoor Living Space</option><option>Garden Design</option><option>Estate / Full Property</option><option>Property or Pool Care</option></select>
+      <button type="submit">Request My Consultation →</button>
+    </form>
+  </div>
+  <div class="cta-right">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80" alt="Luxury outdoor living">
+    <div class="cta-right-badge"><div class="cta-right-badge-inner"><p>Serving Fairfield &amp; Westchester</p><a onclick="goTo('contact')">(203) 555-0100</a></div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a class="nav-logo" onclick="goTo('home')">Stone<span>water</span></a><p>Designing and building extraordinary outdoor environments across Fairfield and Westchester Counties since 1987.</p><p class="footer-concept">Concept design by THIS — thisagency.com</p></div>
+    <div class="footer-col"><h5>Services</h5><ul><li><a onclick="goTo('service')">Pool Design &amp; Build</a></li><li><a onclick="goTo('service')">Landscape Architecture</a></li><li><a onclick="goTo('service')">Outdoor Living</a></li><li><a onclick="goTo('service')">Garden Design</a></li><li><a onclick="goTo('service')">Property Care</a></li><li><a onclick="goTo('service')">Estates Program</a></li></ul></div>
+    <div class="footer-col"><h5>Company</h5><ul><li><a onclick="goTo('difference')">Our Philosophy</a></li><li><a onclick="goTo('portfolio')">Portfolio</a></li><li><a onclick="goTo('difference')">Our Story</a></li><li><a onclick="goTo('contact')">Careers</a></li><li><a onclick="goTo('difference')">Sustainability</a></li></ul></div>
+    <div class="footer-col"><h5>Contact</h5><ul><li><a href="tel:+12035550100">(203) 555-0100</a></li><li><a onclick="goTo('contact')">Request a Consultation</a></li><li><a>Wilton, CT 06897</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Stonewater Company. All rights reserved.</p><div><a>Privacy</a><a>Terms</a></div></div>
+</footer>
+</div><!-- end page-home -->
+
+
+<!-- ════════════════════════════════
+     PAGE: PORTFOLIO
+════════════════════════════════ -->
+<div class="page" id="page-portfolio">
+<div class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=1800&q=80')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="breadcrumb"><a onclick="goTo('home')">Home</a><span>/</span><span>Portfolio</span></div>
+  <div class="page-hero-content"><p class="page-hero-eyebrow">Our Work</p><h1>Every project tells<br><em>a different story</em></h1></div>
+</div>
+
+<div class="pf-page-wrap">
+  <div class="pf-filter-bar">
+    <span class="pf-filter-label">Filter:</span>
+    <button class="pf-filter active">All Projects</button>
+    <button class="pf-filter">Swimming Pools &amp; Spas</button>
+    <button class="pf-filter">Outdoor Living</button>
+    <button class="pf-filter">Landscapes &amp; Gardens</button>
+    <button class="pf-filter">Estates</button>
+  </div>
+  <div class="pf-full-grid">
+    <div class="pf-full-item pf-featured" onclick="goTo('project')"><img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=1200&q=80" alt=""><div class="pf-full-hover"><span class="pf-full-meta">Greenwich · Pool &amp; Landscape · 2023</span><span class="pf-full-title">A Sound Estate</span></div></div>
+    <div class="pf-full-item" onclick="goTo('project')"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700&q=80" alt=""><div class="pf-full-hover"><span class="pf-full-meta">Darien · Pool Design · 2023</span><span class="pf-full-title">The Coastal Residence</span></div></div>
+    <div class="pf-full-item" onclick="goTo('project')"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80" alt=""><div class="pf-full-hover"><span class="pf-full-meta">Westport · Outdoor Living · 2022</span><span class="pf-full-title">Westport Modern</span></div></div>
+    <div class="pf-full-item" onclick="goTo('project')"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt=""><div class="pf-full-hover"><span class="pf-full-meta">New Canaan · Landscape · 2022</span><span class="pf-full-title">New Canaan Formal</span></div></div>
+    <div class="pf-full-item" onclick="goTo('project')"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=700&q=80" alt=""><div class="pf-full-hover"><span class="pf-full-meta">Wilton · Garden Design · 2022</span><span class="pf-full-title">Rhythms of the Land</span></div></div>
+    <div class="pf-full-item pf-featured" onclick="goTo('project')"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80" alt=""><div class="pf-full-hover"><span class="pf-full-meta">Greenwich · Full Estate · 2021</span><span class="pf-full-title">One Unified Vision</span></div></div>
+    <div class="pf-full-item" onclick="goTo('project')"><img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=700&q=80" alt=""><div class="pf-full-hover"><span class="pf-full-meta">Ridgefield · Estate · 2021</span><span class="pf-full-title">The Ridge</span></div></div>
+    <div class="pf-full-item" onclick="goTo('project')"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=700&q=80" alt=""><div class="pf-full-hover"><span class="pf-full-meta">Darien · Pool &amp; Spa · 2020</span><span class="pf-full-title">Modern Mediterranean</span></div></div>
+    <div class="pf-full-item" onclick="goTo('project')"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80" alt=""><div class="pf-full-hover"><span class="pf-full-meta">Weston · Landscape · 2020</span><span class="pf-full-title">In-Town Simplicity</span></div></div>
+  </div>
+</div>
+
+<div class="testimonial" style="background-image:url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1800&q=80')">
+  <div class="testimonial-content"><span class="quote-mark">"</span><blockquote>The portfolio speaks for itself — but what you can't see in the photos is how seamlessly every project was managed.</blockquote><cite>— J. Harrington, Westport CT · Clients since 2017</cite></div>
+</div>
+
+<div class="cta-section">
+  <div class="cta-left"><p class="section-label" style="color:var(--stone-light)">Start Your Project</p><h2 class="section-title">Ready to create<br><em>something extraordinary?</em></h2><p>Schedule a complimentary consultation with one of our senior designers.</p><div style="margin-top:8px"><a class="btn-primary" onclick="goTo('contact')">Request a Consultation</a></div></div>
+  <div class="cta-right"><img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=900&q=80" alt=""><div class="cta-right-badge"><div class="cta-right-badge-inner"><p>Serving Fairfield &amp; Westchester</p><a onclick="goTo('contact')">(203) 555-0100</a></div></div></div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a class="nav-logo" onclick="goTo('home')">Stone<span>water</span></a><p>Designing and building extraordinary outdoor environments since 1987.</p><p class="footer-concept">Concept design by THIS — thisagency.com</p></div>
+    <div class="footer-col"><h5>Services</h5><ul><li><a onclick="goTo('service')">Pool Design &amp; Build</a></li><li><a onclick="goTo('service')">Landscape Architecture</a></li><li><a onclick="goTo('service')">Outdoor Living</a></li><li><a onclick="goTo('service')">Garden Design</a></li></ul></div>
+    <div class="footer-col"><h5>Company</h5><ul><li><a onclick="goTo('difference')">Our Story</a></li><li><a onclick="goTo('portfolio')">Portfolio</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div>
+    <div class="footer-col"><h5>Contact</h5><ul><li><a href="tel:+12035550100">(203) 555-0100</a></li><li><a onclick="goTo('contact')">Request a Consultation</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Stonewater Company. All rights reserved.</p><div><a>Privacy</a><a>Terms</a></div></div>
+</footer>
+</div><!-- end page-portfolio -->
+
+
+<!-- ════════════════════════════════
+     PAGE: PROJECT DETAIL
+════════════════════════════════ -->
+<div class="page" id="page-project">
+<div class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=1800&q=80')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="breadcrumb"><a onclick="goTo('home')">Home</a><span>/</span><a onclick="goTo('portfolio')">Portfolio</a><span>/</span><span>A Sound Estate</span></div>
+  <div class="page-hero-content"><p class="page-hero-eyebrow">Greenwich, CT · 2023</p><h1>A Sound<br><em>Estate</em></h1></div>
+</div>
+
+<div class="project-wrap">
+  <div class="project-intro">
+    <div class="project-intro-text">
+      <h2>Living with the landscape — not against it</h2>
+      <p>This 4.2-acre Greenwich estate presented a rare opportunity: an existing property with strong bones and a Long Island Sound view that the original design had never fully realized. The owners came to Stonewater with a clear ambition — to create an outdoor environment that felt worthy of the setting.</p>
+      <p>The result is a complete reimagining of the property's relationship to its site. A 65-foot negative-edge pool now disappears into the horizon at dusk, its edge precisely calibrated to the horizon line visible from the main living area. The bluestone terrace sweeps from the pool to a fully-equipped outdoor kitchen and covered pavilion, all centered on the view.</p>
+      <p>Below the main terrace, a cascade of graduated planting — native grasses, ornamental shrubs, and seasonal perennials — creates a living transition between the formal hardscape and the natural shoreline. Four seasons of considered planting ensure the property is never static.</p>
+      <div style="margin-top:28px"><a class="btn-outline-dark" onclick="goTo('contact')">Start a Similar Project</a></div>
+    </div>
+    <div class="project-specs">
+      <div class="spec-row"><span class="spec-label">Location</span><span class="spec-value">Greenwich, CT</span></div>
+      <div class="spec-row"><span class="spec-label">Completed</span><span class="spec-value">Summer 2023</span></div>
+      <div class="spec-row"><span class="spec-label">Property Size</span><span class="spec-value">4.2 Acres</span></div>
+      <div class="spec-row"><span class="spec-label">Pool Type</span><span class="spec-value">Negative-Edge, 65'</span></div>
+      <div class="spec-row"><span class="spec-label">Services</span><span class="spec-value">Pool, Landscape, Hardscape, Garden</span></div>
+      <div class="spec-row"><span class="spec-label">Awards</span><span class="spec-value">APSP Design Award 2023</span></div>
+    </div>
+  </div>
+  <div class="project-gallery">
+    <div class="pg-main"><img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=1200&q=80" alt=""></div>
+    <div class="pg-side"><div class="pg-side-img"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700&q=80" alt=""></div><div class="pg-side-img"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80" alt=""></div></div>
+    <div class="pg-wide"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80" alt=""></div>
+    <div class="pg-wide"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&q=80" alt=""></div>
+    <div class="pg-full"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1600&q=80" alt=""></div>
+  </div>
+  <div class="project-nav">
+    <div class="proj-nav-link" onclick="goTo('project')"><span>← Previous Project</span><span>Modern Mediterranean</span></div>
+    <a class="btn-outline-dark" onclick="goTo('portfolio')">Back to Portfolio</a>
+    <div class="proj-nav-link" style="text-align:right" onclick="goTo('project')"><span>Next Project →</span><span>The Coastal Residence</span></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a class="nav-logo" onclick="goTo('home')">Stone<span>water</span></a><p>Designing and building extraordinary outdoor environments since 1987.</p><p class="footer-concept">Concept design by THIS — thisagency.com</p></div>
+    <div class="footer-col"><h5>Services</h5><ul><li><a onclick="goTo('service')">Pool Design &amp; Build</a></li><li><a onclick="goTo('service')">Landscape Architecture</a></li><li><a onclick="goTo('service')">Outdoor Living</a></li></ul></div>
+    <div class="footer-col"><h5>Company</h5><ul><li><a onclick="goTo('difference')">Our Story</a></li><li><a onclick="goTo('portfolio')">Portfolio</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div>
+    <div class="footer-col"><h5>Contact</h5><ul><li><a href="tel:+12035550100">(203) 555-0100</a></li><li><a onclick="goTo('contact')">Request a Consultation</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Stonewater Company. All rights reserved.</p><div><a>Privacy</a><a>Terms</a></div></div>
+</footer>
+</div><!-- end page-project -->
+
+
+<!-- ════════════════════════════════
+     PAGE: SERVICE DETAIL
+════════════════════════════════ -->
+<div class="page" id="page-service">
+<div class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1800&q=80')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="breadcrumb"><a onclick="goTo('home')">Home</a><span>/</span><a>Services</a><span>/</span><span>Pool Design</span></div>
+  <div class="page-hero-content"><p class="page-hero-eyebrow">Our Services</p><h1>Pool Design,<br>Build &amp; <em>Renovation</em></h1></div>
+</div>
+
+<div class="service-wrap">
+  <div class="service-intro">
+    <div class="service-intro-text">
+      <h2>Water is the most powerful element in any landscape. We treat it that way.</h2>
+      <p>A Stonewater pool is never just a pool. It's the anchor of your outdoor environment — the element everything else responds to. Every pool we design begins not with a catalog of shapes, but with your site: its grades, its sight lines, its relationship to the house and the horizon.</p>
+      <p>We have designed and built over 300 pools across Fairfield and Westchester Counties — from intimate plunge pools in Westport townhouse gardens to 80-foot infinity-edge installations on Greenwich waterfront estates. No two are alike. Each one is site-specific by design.</p>
+      <p>Our pool design team includes licensed landscape architects and structural engineers working alongside our construction crews — a fully integrated process that eliminates the disconnection between design intent and built reality that plagues contractor-led projects.</p>
+    </div>
+    <div class="service-callout">
+      <blockquote>"The pool is not a feature you add to a property. It's the feature the property is organized around."</blockquote>
+      <cite>— Stonewater Design Principle</cite>
+      <ul>
+        <li>300+ pools built in Fairfield County</li>
+        <li>12 APSP design awards</li>
+        <li>Every pool designed by a licensed architect</li>
+        <li>In-house construction — no subcontractors</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="service-types-section">
+  <h3>Every pool. <em>Designed for its site.</em></h3>
+  <div class="svc-type-grid">
+    <div class="svc-type"><div class="svc-type-bar"></div><h4>Negative-Edge &amp; Infinity Pools</h4><p>Engineered for properties with elevation or views. The vanishing edge is the most technically demanding pool form — and the most dramatic. We've built over 80 across Fairfield County.</p></div>
+    <div class="svc-type"><div class="svc-type-bar"></div><h4>Traditional &amp; Classic Forms</h4><p>Rectangular, Roman, and freeform pools designed with formal precision. Appropriate for properties where the architecture demands restraint and permanence.</p></div>
+    <div class="svc-type"><div class="svc-type-bar"></div><h4>Plunge Pools &amp; Spas</h4><p>For smaller properties or as a complement to a larger water feature. Designed for year-round use with integrated heating and water management systems.</p></div>
+    <div class="svc-type"><div class="svc-type-bar"></div><h4>Pool Renovation</h4><p>Structural resurfacing, modern filtration upgrades, LED lighting conversions, tiling and coping replacement, and deck renovation for pools that need a second chapter.</p></div>
+    <div class="svc-type"><div class="svc-type-bar"></div><h4>Pool Structures &amp; Pavilions</h4><p>Changing rooms, pool houses, cabanas, and adjacent structures designed as architectural extensions of the home — not afterthoughts.</p></div>
+    <div class="svc-type"><div class="svc-type-bar"></div><h4>Smart Water Management</h4><p>Automated chemical management, remote monitoring, energy-efficient pumping, and solar heating systems that reduce operating costs and extend the season.</p></div>
+  </div>
+</div>
+
+<div class="service-gallery-row" style="margin:3px 0">
+  <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=700&q=80" alt="">
+  <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700&q=80" alt="">
+  <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=700&q=80" alt="">
+</div>
+
+<section class="process" style="background:var(--cream)">
+  <div class="process-header"><p class="section-label">Our Pool Design Process</p><h2 class="section-title">From first conversation<br><em>to first swim</em></h2></div>
+  <div class="process-steps">
+    <div class="step"><div class="step-num">01</div><h4>Site Consultation</h4><p>We walk the property with you. We assess grades, drainage, sight lines, utilities, and zoning before a single sketch is drawn.</p></div>
+    <div class="step"><div class="step-num">02</div><h4>Design Development</h4><p>Schematic designs and rendered plans developed through a collaborative process until the design precisely matches your vision.</p></div>
+    <div class="step"><div class="step-num">03</div><h4>Permitting &amp; Engineering</h4><p>We manage the full permitting process — structural, electrical, and municipal — so you never have to navigate a town hall.</p></div>
+    <div class="step"><div class="step-num">04</div><h4>Construction</h4><p>In-house crews. Weekly owner updates. A dedicated project manager on site every day from excavation to final water.</p></div>
+  </div>
+</section>
+
+<div class="cta-section">
+  <div class="cta-left"><p class="section-label" style="color:var(--stone-light)">Begin Your Pool Project</p><h2 class="section-title">Let's start with<br><em>your site</em></h2><p>Every pool starts with a conversation. Schedule a complimentary site consultation with one of our licensed designers.</p><div style="margin-top:8px;display:flex;flex-direction:column;gap:14px;align-items:flex-start"><a class="btn-primary" onclick="goTo('contact')">Schedule a Consultation</a><a href="tel:+12035550100" style="font-size:13px;color:var(--stone-light);text-decoration:none;letter-spacing:0.1em">(203) 555-0100</a></div></div>
+  <div class="cta-right"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=900&q=80" alt=""><div class="cta-right-badge"></div></div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a class="nav-logo" onclick="goTo('home')">Stone<span>water</span></a><p>Designing and building extraordinary outdoor environments since 1987.</p><p class="footer-concept">Concept design by THIS — thisagency.com</p></div>
+    <div class="footer-col"><h5>Services</h5><ul><li><a onclick="goTo('service')">Pool Design &amp; Build</a></li><li><a onclick="goTo('service')">Landscape Architecture</a></li><li><a onclick="goTo('service')">Outdoor Living</a></li><li><a onclick="goTo('service')">Garden Design</a></li></ul></div>
+    <div class="footer-col"><h5>Company</h5><ul><li><a onclick="goTo('difference')">Our Story</a></li><li><a onclick="goTo('portfolio')">Portfolio</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div>
+    <div class="footer-col"><h5>Contact</h5><ul><li><a href="tel:+12035550100">(203) 555-0100</a></li><li><a onclick="goTo('contact')">Request a Consultation</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Stonewater Company. All rights reserved.</p><div><a>Privacy</a><a>Terms</a></div></div>
+</footer>
+</div><!-- end page-service -->
+
+
+<!-- ════════════════════════════════
+     PAGE: THE STONEWATER DIFFERENCE
+════════════════════════════════ -->
+<div class="page" id="page-difference">
+<div class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1800&q=80')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="breadcrumb"><a onclick="goTo('home')">Home</a><span>/</span><a>About</a><span>/</span><span>The Stonewater Difference</span></div>
+  <div class="page-hero-content"><p class="page-hero-eyebrow">About Stonewater</p><h1>The Stonewater<br><em>Difference</em></h1></div>
+</div>
+
+<div class="about-intro">
+  <div class="about-intro-text">
+    <h2>Built on 35 years of knowing<br><em>Fairfield County's land</em></h2>
+    <p>Stonewater was founded in 1987 by landscape architect William Hargrove with a belief that the difference between a good outdoor environment and a great one is almost entirely about process — who designs it, how closely design and construction are integrated, and whether the people who build it understand the intent behind every decision.</p>
+    <p>That belief hasn't changed. What has changed is the depth of our expertise, the sophistication of our design tools, and the breadth of our portfolio — now spanning over 350 completed projects across Fairfield and Westchester Counties.</p>
+    <p>We are not a general contractor that does pools. We are not a pool company that does landscaping. We are a design-led practice that builds everything we design — which means accountability runs straight through from first sketch to final inspection.</p>
+  </div>
+  <div class="about-intro-img"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80" alt=""></div>
+</div>
+
+<div class="about-pillars">
+  <p class="section-label">Our Core Commitments</p>
+  <h2 class="section-title">What we believe makes<br><em>the difference</em></h2>
+  <div class="pillars-grid">
+    <div class="pillar"><div class="pillar-num">01</div><h3>Design integrity, always</h3><p>Every engagement begins with a licensed landscape architect. Design is not a service we provide before handing off to a contractor — it's the discipline we apply from first site visit to final punch list. The same person who conceives your project oversees its construction.</p></div>
+    <div class="pillar"><div class="pillar-num">02</div><h3>Site-specific everything</h3><p>We do not sell packages. We do not reuse layouts. Every project begins with a fresh analysis of your specific property — its grades, its light, its relationship to the house, its soil conditions, its drainage patterns. The design follows from the site, not from a catalog.</p></div>
+    <div class="pillar"><div class="pillar-num">03</div><h3>One team, full scope</h3><p>From master planning through ongoing property care, Stonewater clients work with one team. No handoffs between design firms, general contractors, and maintenance companies. One relationship, one standard, one point of accountability for the lifetime of your property.</p></div>
+    <div class="pillar"><div class="pillar-num">04</div><h3>Long-term thinking</h3><p>Fairfield County's best properties are measured in decades, not years. We design for longevity — choosing materials that age gracefully, planting that matures into beauty, and pool systems engineered for decades of operation.</p></div>
+  </div>
+</div>
+
+<div class="about-team">
+  <p class="section-label" style="color:var(--stone-light)">Our Team</p>
+  <h2 class="section-title" style="color:var(--white)">The people who make it<br><em>possible</em></h2>
+  <div class="team-grid">
+    <div class="team-card"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=700&q=80" alt=""><div class="team-info"><div class="team-name">William Hargrove</div><div class="team-role">Founder &amp; Principal Designer</div></div></div>
+    <div class="team-card"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&q=80" alt=""><div class="team-info"><div class="team-name">Claire Ashford</div><div class="team-role">Director of Landscape Architecture</div></div></div>
+    <div class="team-card"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=700&q=80" alt=""><div class="team-info"><div class="team-name">James Moretti</div><div class="team-role">Director of Pool Construction</div></div></div>
+  </div>
+</div>
+
+<div class="about-timeline">
+  <p class="section-label">Origins &amp; Milestones</p>
+  <h2 class="section-title">35 years of<br><em>building in this county</em></h2>
+  <div class="timeline-list">
+    <div class="timeline-item"><span class="timeline-year">1987</span><div class="timeline-text"><h4>Founded in Wilton, CT</h4><p>William Hargrove establishes Stonewater as a sole-practitioner landscape architecture firm, completing 7 residential projects in the first year.</p></div></div>
+    <div class="timeline-item"><span class="timeline-year">1993</span><div class="timeline-text"><h4>In-house construction begins</h4><p>Frustrated by the gap between design intent and contractor execution, Stonewater hires its first construction crew — a decision that defines the company's model to this day.</p></div></div>
+    <div class="timeline-item"><span class="timeline-year">2001</span><div class="timeline-text"><h4>100th pool completed</h4><p>A Greenwich waterfront estate marks the firm's 100th completed pool installation. The project wins a national APSP design award.</p></div></div>
+    <div class="timeline-item"><span class="timeline-year">2009</span><div class="timeline-text"><h4>Estates program launched</h4><p>Estates by Stonewater formalizes the firm's full-property management offering — design, construction, and year-round stewardship under a single relationship.</p></div></div>
+    <div class="timeline-item"><span class="timeline-year">2018</span><div class="timeline-text"><h4>Second generation joins</h4><p>Claire Ashford becomes Director of Landscape Architecture, bringing a new generation of design sensibility to the firm's portfolio.</p></div></div>
+    <div class="timeline-item"><span class="timeline-year">2023</span><div class="timeline-text"><h4>350th project completed</h4><p>The Sound Estate in Greenwich — a 4.2-acre waterfront transformation — marks Stonewater's 350th completed project and earns the firm's 18th national award.</p></div></div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <div class="cta-left"><p class="section-label" style="color:var(--stone-light)">Work With Us</p><h2 class="section-title">35 years of experience.<br><em>Your property. Your vision.</em></h2><p>Start with a conversation. We'll come to your property, listen carefully, and tell you honestly what's possible.</p><div style="margin-top:8px"><a class="btn-primary" onclick="goTo('contact')">Request a Consultation</a></div></div>
+  <div class="cta-right"><img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=900&q=80" alt=""><div class="cta-right-badge"></div></div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a class="nav-logo" onclick="goTo('home')">Stone<span>water</span></a><p>Designing and building extraordinary outdoor environments since 1987.</p><p class="footer-concept">Concept design by THIS — thisagency.com</p></div>
+    <div class="footer-col"><h5>Services</h5><ul><li><a onclick="goTo('service')">Pool Design &amp; Build</a></li><li><a onclick="goTo('service')">Landscape Architecture</a></li><li><a onclick="goTo('service')">Outdoor Living</a></li></ul></div>
+    <div class="footer-col"><h5>Company</h5><ul><li><a onclick="goTo('portfolio')">Portfolio</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div>
+    <div class="footer-col"><h5>Contact</h5><ul><li><a href="tel:+12035550100">(203) 555-0100</a></li><li><a onclick="goTo('contact')">Consultation</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Stonewater Company. All rights reserved.</p><div><a>Privacy</a><a>Terms</a></div></div>
+</footer>
+</div><!-- end page-difference -->
+
+
+<!-- ════════════════════════════════
+     PAGE: CONTACT
+════════════════════════════════ -->
+<div class="page" id="page-contact">
+<div class="contact-page">
+  <div class="contact-info">
+    <p class="section-label" style="color:var(--stone-light)">Get In Touch</p>
+    <h2 class="section-title">Every project begins<br><em>with a conversation</em></h2>
+    <p>We'd love to hear about your property and your vision. Our consultations are complimentary — we come to your site, spend time understanding what you're trying to create, and offer an honest assessment of what's possible.</p>
+    <div class="contact-detail">
+      <div class="contact-item"><h5>Main Office</h5><p>1240 Wolfpit Road, Wilton, CT 06897</p></div>
+      <div class="contact-item"><h5>Phone</h5><a href="tel:+12035550100">(203) 555-0100</a></div>
+      <div class="contact-item"><h5>Email</h5><a href="mailto:hello@stonewater.com">hello@stonewater.com</a></div>
+      <div class="contact-item"><h5>Hours</h5><p>Monday – Friday, 8am – 5pm</p></div>
+      <div class="contact-item"><h5>Service Area</h5><p>Greenwich · Darien · Westport · New Canaan · Wilton · Ridgefield · Stamford · Weston · Westchester County</p></div>
+    </div>
+  </div>
+  <div class="contact-form-wrap">
+    <p class="section-label">Request a Consultation</p>
+    <h2>Tell us about<br><em>your project</em></h2>
+    <form class="contact-form" onsubmit="return false">
+      <div class="contact-form-row"><input type="text" placeholder="First name"><input type="text" placeholder="Last name"></div>
+      <input type="email" placeholder="Email address">
+      <input type="tel" placeholder="Phone number">
+      <input type="text" placeholder="Property address or town">
+      <select><option value="" disabled selected>I'm interested in…</option><option>Pool Design &amp; New Build</option><option>Pool Renovation</option><option>Landscape Architecture</option><option>Outdoor Living &amp; Entertainment</option><option>Garden Design &amp; Installation</option><option>Full Estate / Multiple Services</option><option>Property Care Program</option><option>Pool Care Program</option></select>
+      <select><option value="" disabled selected>Project timeline</option><option>Ready to start now</option><option>Within 6 months</option><option>6–12 months</option><option>Planning for next year</option><option>Just exploring</option></select>
+      <textarea placeholder="Tell us more about your property and what you're hoping to create…"></textarea>
+      <button type="submit">Send My Request →</button>
+    </form>
+  </div>
+</div>
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a class="nav-logo" onclick="goTo('home')">Stone<span>water</span></a><p>Designing and building extraordinary outdoor environments since 1987.</p><p class="footer-concept">Concept design by THIS — thisagency.com</p></div>
+    <div class="footer-col"><h5>Services</h5><ul><li><a onclick="goTo('service')">Pool Design &amp; Build</a></li><li><a onclick="goTo('service')">Landscape Architecture</a></li><li><a onclick="goTo('service')">Outdoor Living</a></li></ul></div>
+    <div class="footer-col"><h5>Company</h5><ul><li><a onclick="goTo('difference')">Our Story</a></li><li><a onclick="goTo('portfolio')">Portfolio</a></li></ul></div>
+    <div class="footer-col"><h5>Contact</h5><ul><li><a href="tel:+12035550100">(203) 555-0100</a></li><li><a>1240 Wolfpit Road, Wilton CT</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Stonewater Company. All rights reserved.</p><div><a>Privacy</a><a>Terms</a></div></div>
+</footer>
+</div><!-- end page-contact -->
+
+
+<script>
+// ── ROUTER ──
+// Maps page names to element IDs — no conflict with HTML elements
+var pageMap = {
+  'home':       'page-home',
+  'portfolio':  'page-portfolio',
+  'project':    'page-project',
+  'service':    'page-service',
+  'difference': 'page-difference',
+  'contact':    'page-contact'
+};
+var currentPage = 'home';
+
+function goTo(name) {
+  if (!pageMap[name] || name === currentPage) return;
+  // Hide current
+  document.getElementById(pageMap[currentPage]).classList.remove('active');
+  // Show next
+  document.getElementById(pageMap[name]).classList.add('active');
+  currentPage = name;
+  window.scrollTo(0, 0);
+  // Re-run reveal observer on newly shown page
+  initReveals();
+}
+
+// ── SCROLL REVEAL ──
+function initReveals() {
+  var els = document.querySelectorAll('#' + pageMap[currentPage] + ' .reveal:not(.visible)');
+  els.forEach(function(el) { revealObserver.observe(el); });
+}
+var revealObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+initReveals();
+
+// ── PORTFOLIO FILTERS (visual only) ──
+document.querySelectorAll('.pf-filter').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.pf-filter').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
