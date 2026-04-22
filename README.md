@@ -1,149 +1,92 @@
-# Stonewater
+# Stonewater — Luxury Outdoor Living Brand Concept
 
-A concept website for Stonewater, a fictitious luxury pool and landscape design company. Built as a portfolio demonstration by THIS.
+![Stonewater](github-concept-stonewater-preview.png)
 
-[Live Site](https://mikehnath.github.io/stonewater/) • [Repository](https://github.com/MikeHnath/stonewater)
+**A spec brand and website concept for the Fairfield County luxury landscape & pool category.**  
+Designed and developed by Michael Hnath — Brand & Growth Strategist.
 
-![Stonewater homepage hero](assets/readme/stonewater-hero.jpg)
-
----
-
-## Overview
-
-Stonewater is a concept project exploring how a luxury outdoor living company should present itself online through elevated brand positioning, premium visual storytelling, and conversion-focused UX.
-
-The goal was to create a digital experience that reflects the *outcome* of the service, not just the service itself.
+🔗 **[Live demo →](https://mikehnath.github.io/stonewater/)**
 
 ---
 
-## Problem
+## The Brief
 
-Many pool and landscape design companies rely on templated websites that:
+Fairfield County's luxury home services market — pool builders, landscape architects, outdoor living contractors — is dominated by firms that do exceptional physical work but present themselves with weak, contractor-grade digital experiences. The category charges $50K–$500K per project and caters to one of the most affluent demographics in the country, yet most brands in the space undersell themselves online.
 
-- Lead with services instead of outcomes  
-- Undersell premium positioning through generic design  
-- Lack emotional storytelling and aspiration  
-- Provide weak or unclear paths to inquiry  
+Stonewater is a concept brand built to answer a single question:
 
-This results in lower-quality leads and limited differentiation in a competitive market.
+> What would a luxury outdoor living brand look like if it were designed with the same rigor as the work it delivers?
 
 ---
 
-## Solution
+## Strategic Positioning
 
-Stonewater was designed as a top-down brand and UX system that addresses these gaps through:
+| | |
+|---|---|
+| **Category** | Luxury landscape architecture, pool design & build, estate property care |
+| **Geography** | Fairfield County, CT + Westchester County, NY |
+| **Audience** | Discerning homeowners investing $100K+ in their outdoor environment |
+| **Voice** | Editorial, confident, design-led — not contractor-led |
+| **Positioning statement** | *Where land meets living water.* |
 
-- **Premium positioning** driven by typography, layout, and tone  
-- **Editorial-inspired structure** that prioritizes storytelling over listing services  
-- **Intentional user flow** guiding visitors from aspiration to action  
-- **Conversion-aware design** that encourages inquiry without feeling transactional  
-
----
-
-## Features
-
-- Responsive layout across desktop and mobile  
-- Editorial-inspired luxury design system  
-- Clear service and process storytelling  
-- Conversion-focused call-to-action flow  
-- Custom-built using HTML, CSS, and JavaScript  
-- Consistent spacing and layout system for premium feel  
-
----
-
-## Screenshots
-
-### Homepage
-![Homepage](assets/readme/stonewater-hero.jpg)
-
-### Services Section
-![Services](assets/readme/stonewater-services.jpg)
-
-### Process Section
-![Process](assets/readme/stonewater-process.jpg)
-
-### Mobile View
-![Mobile](assets/readme/stonewater-mobile.jpg)
-
----
-
-## UX Thinking
-
-The site follows a structured narrative designed for high-ticket decision-making:
-
-1. **Hero** — Establish aspiration and clarity immediately  
-2. **Value Proposition** — Communicate brand intent and positioning  
-3. **Services** — Framed as outcomes, not deliverables  
-4. **Process** — Reduces perceived risk and builds trust  
-5. **Portfolio** — Visual proof of capability  
-6. **Call to Action** — Soft but clear conversion pathway  
-
-Each section is designed to move users toward inquiry without overwhelming them.
+The brand is built around a **design-led, not contractor-led** point of view — a deliberate contrast to how most firms in the category sell themselves. Every visual and copy decision reinforces that positioning.
 
 ---
 
 ## Design System
 
-### Typography
-- Serif-forward system to signal luxury and craftsmanship  
-- Clean sans-serif pairing for readability and contrast  
-- Strong hierarchy to guide scanning behavior  
+- **Typography** — Cormorant Garamond (editorial serif) paired with Jost (geometric sans-serif)
+- **Palette** — Deep charcoal, warm stone tones, water blue, generous negative space
+- **Architecture** — Full single-page application with seven routed sections: Home, Portfolio, Portfolio Detail, Services, About, Contact
+- **Motion** — Scroll-reveal animations, fixed-nav scroll behavior, parallax testimonial, subtle horizontal service ticker
 
-### Layout
-- Centered content containers with controlled max-width  
-- Left-anchored navigation for structural consistency  
-- Generous whitespace to reinforce premium positioning  
+---
 
-### Visual Language
-- Neutral palette to allow imagery to lead  
-- Subtle borders and shadows for depth  
-- Editorial influence inspired by luxury publications  
+## What's Built
+
+A complete multi-page marketing site with:
+
+- Full navigation architecture mirroring how a real luxury services site is organized
+- Homepage with hero, philosophy, services grid, differentiators, portfolio preview, process, testimonial, and consultation CTA
+- Portfolio index with category filtering
+- Individual project detail pages with project specs, gallery, and prev/next navigation
+- Service detail page demonstrating deep-link merchandising of a single offering
+- About page with brand story, team, and milestone timeline
+- Contact page with service-specific inquiry routing
 
 ---
 
 ## Tech Stack
 
-- HTML5  
-- CSS3  
-- Vanilla JavaScript  
-- GitHub Pages (deployment)  
+Intentionally lightweight — the point was design and content, not framework overhead.
+
+- Vanilla HTML / CSS / JavaScript
+- Client-side routing (no build step)
+- IntersectionObserver for scroll animations
+- Hosted on GitHub Pages
+- Imagery sourced from Unsplash for the concept; replaceable with client photography in production
 
 ---
 
-## Project Structure
+## File Structure
+
 stonewater/
-├── index.html
-├── css/
-├── js/
-├── assets/
-│ └── readme/
-└── README.md
+├── index.html      # Structure and routed section markup
+├── style.css       # Full design system and responsive layout
+├── main.js         # Routing, scroll behavior, filters, reveal animations
+└── images.md       # Image source reference
 
 ---
 
-## What This Demonstrates
+## About the Work
 
-This project is not about technical complexity. It demonstrates:
+This is one of several spec concepts I've developed to demonstrate what's possible when a premium services category is approached with the same craft the work itself demands. My background spans 15+ years across CPG (Kraft Heinz), licensed consumer brands (Infinity Global — Disney, MLB, Nickelodeon), healthcare marketing (POCN), and independent brand and growth consulting.
 
-- Translating brand positioning into UI decisions  
-- Designing for conversion in high-ticket service categories  
-- Structuring content to guide user behavior  
-- Creating a premium digital experience through restraint and clarity  
+**Interested in a similar concept for your brand?**  
+→ [linkedin.com/in/michaelhnath](https://linkedin.com/in/michaelhnath)
 
 ---
 
-## Next Steps
+## License
 
-- Expand additional pages (portfolio, detailed services)  
-- Introduce subtle motion and interaction states  
-- Improve image optimization and performance  
-- Evolve into a full case study within portfolio  
-
----
-
-## Contact
-
-Built by Michael Hnath / THIS  
-
-- Portfolio: https://hnath.myportfolio.com  
-- LinkedIn: https://linkedin.com/in/michaelhnath  
+Concept design © 2026 Michael Hnath. Imagery via Unsplash under their license. Brand name, positioning, and content are fictional and for demonstration purposes only.
